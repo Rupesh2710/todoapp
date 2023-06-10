@@ -1,6 +1,7 @@
 # todoapp
 #Todo app created in flask
 # I created a new directory named "templates" to store the requires html files
+
 from flask import Flask, render_template, request, url_for,redirect
 
 app= Flask(__name__, template_folder="templates")
@@ -76,42 +77,73 @@ if __name__ == "__main__":
 <head>
     
     <meta charset="UTF-8">
+    
     <title>Todo App</title>
 
 </head>
+
 <body>
   
   <h1>Todos</h1>
   
   <ul>
+      
       {% for todo in todos %}
-         <li>
+         
+        <li>
+             
              <input type="checkbox" name="done" {% if todo['done'] %} checked {%endif%} disabled onchange="this.form.submit()">
+             
              <span {% if todo['done'] %} style="text-decoration: line-through" {%endif%}>{{ todo['task'] }}</span>
+             
              <a href="{{ url_for('check', index=loop.index0) }}">Check</a>
+             
              <a href="{{ url_for('edit', index=loop.index0) }}">Edit</a>
+             
              <a href="{{ url_for('delete', index=loop.index0) }}">Delete</a>
-         </li>
+         
+        </li>
+      
       {% endfor %}
-  </ul>
+  
+ </ul>
+    
     <form action="{{ url_for('add') }}" method="post">
+        
         <input type="text" name="todo">
+        
         <button type="submit">Add Todo</button>
+    
     </form>
+
 </body>
+
 </html>
 
 # edit.html
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+    
     <meta charset="UTF-8">
+    
     <title>Title</title>
+
 </head>
+
 <body>
+    
     <form action="{{ url_for('edit', index=index) }}" method="post">
+        
         <input type="text" name="todo" value="{{ todo['task'] }}">
+        
         <button type="submit">Save</button>
+    
     </form>
+
 </body>
+
 </html>
